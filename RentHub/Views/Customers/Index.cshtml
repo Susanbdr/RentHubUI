@@ -1,0 +1,35 @@
+﻿@model IEnumerable<RentHub.Models.Customer>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2></h2>
+
+<p>
+    @Html.ActionLink("NEW CUSTOMER", "New", "Customers", null, new { @class = "btn btn-primary" })
+</p>
+
+<table class="table table-bordered table-hover" id="customers">
+    <thead>
+    <tr>
+        <th>Customer</th>
+        <th>Membership Type</th>
+        <th>Date Of Birth</th>
+        <th>Is Subscribed To NewsLetter</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var customer in Model)
+            {
+                <tr>
+                    <td>@Html.ActionLink(customer.ReturnCustomerFullNameForDisplay, "Edit", "Customers", new { id = customer.Id }, null)</td>
+                    <td>@customer.MembershipType.Name</td>
+                    <td>@customer.DateOfBirthForDisplay</td>
+                    <td>@customer.IsSubscribedToNewsLetter</td>
+                    <td>@Html.ActionLink("Delete", "Delete", "Customers", new { id = customer.Id }, new {@class = "btn btn-primary"})</td>
+                </tr>
+            }
+    </tbody>
+</table>

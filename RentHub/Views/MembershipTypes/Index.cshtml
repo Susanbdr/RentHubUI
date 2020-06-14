@@ -1,0 +1,38 @@
+﻿@model IEnumerable<RentHub.Models.MembershipType>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("NEW MEMBERSHIP TYPE", "New", "MembershipTypes", null, new { @class = "btn btn-primary" })
+</p>
+
+
+
+<table class="table table-bordered table-hover" id="customers">
+    <thead>
+    <tr>
+        <th>Membership Type</th>
+        <th>Sign Up Fee</th>
+        <th>Duration in months</th>
+        <th>Discount Rate</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var membershipType in Model)
+    {
+        <tr>
+            <td>@Html.ActionLink(membershipType.Name, "Edit", "MembershipTypes", new {id = membershipType.Id}, null)</td>
+            <td>@membershipType.SignUpFee</td>
+            <td>@membershipType.DurationInMonths</td>
+            <td>@membershipType.DiscountRate</td>
+            <td>@Html.ActionLink("Delete", "Delete", "MembershipTypes", new {id = membershipType.Id}, new { @class = "btn btn-primary" })</td>
+
+        </tr>
+    }
+    </tbody>
+</table>

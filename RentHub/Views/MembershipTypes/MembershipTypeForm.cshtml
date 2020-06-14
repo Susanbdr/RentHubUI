@@ -1,0 +1,35 @@
+﻿@model RentHub.ViewModels.MembershipTypeViewModel
+@{
+    ViewBag.Title = "MembershipTypeForm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>@Model.Title</h2>
+
+@using (Html.BeginForm("Save", "MembershipTypes"))
+{
+    @Html.ValidationSummary(true, "Please fix the following errors.")
+    <div class="form-group">
+        @Html.LabelFor(m => m.MembershipType.Name)
+        @Html.TextBoxFor(m => m.MembershipType.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.MembershipType.Name)
+    </div>
+     <div class="form-group">
+        @Html.LabelFor(m => m.MembershipType.SignUpFee)
+        @Html.TextBoxFor(m => m.MembershipType.SignUpFee, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.MembershipType.SignUpFee)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.MembershipType.DurationInMonths)
+        @Html.TextBoxFor(m => m.MembershipType.DurationInMonths, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.MembershipType.DurationInMonths)
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.MembershipType.DiscountRate)
+        @Html.TextBoxFor(m => m.MembershipType.DiscountRate, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.MembershipType.DiscountRate)
+    </div>
+    @Html.HiddenFor(m => m.MembershipType.Id)
+    @Html.AntiForgeryToken()
+    <button type="submit" class="btn btn-primary">Save</button>
+}
