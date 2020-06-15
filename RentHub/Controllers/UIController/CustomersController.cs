@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using RentHub.Models;
 using RentHub.ViewModels;
 
@@ -26,8 +27,9 @@ namespace RentHub.Controllers.UIController
         // GET: Customers
         public ActionResult Index()
         {
-            var customer = _context.Customers.Include(c => c.MembershipType).ToList();
-            return View(customer);
+            var customers = _context.Customers.Include(c => c.MembershipType).ToList();
+
+            return View(customers);
         }
 
         public ActionResult New()
@@ -46,7 +48,18 @@ namespace RentHub.Controllers.UIController
         [HttpPost]
         public ActionResult Save(Customer customer)
         {
-           
+
+            if (!ModelState.IsValid)
+            {
+                var viewModel = new CustomerViewModel
+                {
+                    Customer = customer,
+                    MembershipTypes = _context.MembershipTypes.ToList()
+                };
+
+                return View("CustomerForm", viewModel);
+            }
+
             if (customer.Id == 0)
                 _context.Customers.Add(customer);
             else
@@ -67,7 +80,7 @@ namespace RentHub.Controllers.UIController
 
         public ActionResult Edit(int id)
         {
-            var customer = _context.Customers.Single(c => c.Id == id);
+            var customer = GetCustomerId(id);
 
             if (customer == null)
                 return HttpNotFound();
@@ -83,7 +96,7 @@ namespace RentHub.Controllers.UIController
 
         public ActionResult Delete(int id)
         {
-            var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
+            var customer = GetCustomerId(id);
 
             if (customer == null)
                 return HttpNotFound();
@@ -92,6 +105,11 @@ namespace RentHub.Controllers.UIController
             _context.SaveChanges();
 
             return RedirectToAction("Index", "Customers");
+        }
+
+        private Customer GetCustomerId(int id)
+        {
+           return _context.Customers.SingleOrDefault(c => c.Id == id);
         }
     }
 }

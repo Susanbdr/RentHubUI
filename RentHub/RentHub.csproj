@@ -201,6 +201,10 @@
     <Compile Include="Migrations\202006142119330_AddCreatedDateToCustomerModel.designer.cs">
       <DependentUpon>202006142119330_AddCreatedDateToCustomerModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006142140144_AddIdentityTablesToRentHubDb.cs" />
+    <Compile Include="Migrations\202006142140144_AddIdentityTablesToRentHubDb.designer.cs">
+      <DependentUpon>202006142140144_AddIdentityTablesToRentHubDb.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -397,6 +401,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006142119330_AddCreatedDateToCustomerModel.resx">
       <DependentUpon>202006142119330_AddCreatedDateToCustomerModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006142140144_AddIdentityTablesToRentHubDb.resx">
+      <DependentUpon>202006142140144_AddIdentityTablesToRentHubDb.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -12,15 +12,19 @@ namespace RentHub.Models
 
         [Required]
         [StringLength(255)]
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
  
         [StringLength(255)]
+        [Display(Name = "Middle Name")]
         public string MiddleName { get; set; }
 
         [Required]
         [StringLength(255)]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
+        [Display(Name = "Subscribe To Newsletter")]
         public bool IsSubscribedToNewsLetter { get; set; }
 
         [Display(Name = "Date of Birth")]
@@ -30,6 +34,7 @@ namespace RentHub.Models
 
         public MembershipType MembershipType { get; set; }
 
+        [Display(Name = "Membership Type")]
         public byte MembershipTypeId { get; set; }
 
         public string ReturnCustomerFullNameForDisplay => FirstName + " " + MiddleName + " " + LastName;
