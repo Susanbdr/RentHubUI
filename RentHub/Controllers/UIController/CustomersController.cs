@@ -46,6 +46,7 @@ namespace RentHub.Controllers.UIController
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Customer customer)
         {
 

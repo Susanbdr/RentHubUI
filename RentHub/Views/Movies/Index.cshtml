@@ -1,0 +1,58 @@
+﻿@model IEnumerable<RentHub.Models.Movie>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>List of Movies</h2>
+
+<p>
+    @Html.ActionLink("NEW MOVIE", "New", "Movies", null, new { @class = "btn btn-primary" })
+</p>
+
+<table class="table table-bordered table-hover">
+    <thead>
+    <tr>
+        <th>Movie</th>
+        <th>Genre</th>
+        <th>Number in Stock</th>
+        <th>Release Date</th>
+        <th>Delete</th>
+    </tr>
+    </thead>
+    
+    <tbody>
+    @{ var movieId = 0;}
+
+    @foreach (var movie in Model)
+    {
+        movieId = movie.Id;
+        <tr>
+            <td>@Html.ActionLink(movie.Name, "Edit", "Movies", new { id = movie.Id }, null)</td>
+            <td>@movie.Genre.Name</td>
+            <td>@movie.NumberInStock</td>
+            <td>@movie.ReleaseDateForDisplay</td>
+            <td><button type="button" class="btn btn-danger btn-sm" data-item-id="@movie.Id" data-toggle="modal" data-target="#confirm-delete">Delete</button></td>
+        </tr>
+       
+    }
+    </tbody>
+</table>
+
+<div class="modal fade" id="confirm-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Confirm Delete</h4>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                @Html.ActionLink("Delete", "Delete", "Movies", new { id = movieId }, new { @class = "btn btn-danger" })
+            </div>
+        </div>
+    </div>
+</div>

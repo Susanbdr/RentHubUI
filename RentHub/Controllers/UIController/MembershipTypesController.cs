@@ -41,6 +41,8 @@ namespace RentHub.Controllers.UIController
             return View("MembershipTypeForm", viewModel);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(MembershipType membershipType)
         {
             if(membershipType.Id == 0)

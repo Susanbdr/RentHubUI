@@ -1,38 +1,32 @@
-﻿@model IEnumerable<RentHub.Models.MembershipType>
+﻿@using RentHub.Models
+@model IEnumerable<RentHub.Models.Genre>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Genre List</h2>
 
 <p>
-    @Html.ActionLink("NEW MEMBERSHIP TYPE", "New", "MembershipTypes", null, new { @class = "btn btn-primary" })
+    @Html.ActionLink("NEW GENRE", "New", "Genres", null, new { @class = "btn btn-primary" })
 </p>
-
-
 
 <table class="table table-bordered table-hover" id="customers">
     <thead>
     <tr>
-        <th>Membership Type</th>
-        <th>Sign Up Fee</th>
-        <th>Duration in months</th>
-        <th>Discount Rate</th>
+        <th>Genre</th>
         <th>Delete</th>
     </tr>
     </thead>
     <tbody>
-    @{ var membershipTypeToDelete = 0; }
-    @foreach (var membershipType in Model)
+    @{ var genreId = 0; }
+    @foreach (var genre in Model)
     {
-        membershipTypeToDelete = membershipType.Id;
+        genreId = genre.Id;
         <tr>
-            <td>@Html.ActionLink(membershipType.Name, "Edit", "MembershipTypes", new { id = membershipType.Id }, null)</td>
-            <td>@membershipType.SignUpFee</td>
-            <td>@membershipType.DurationInMonths</td>
-            <td>@membershipType.DiscountRate</td>
-            <td><button type="button" class="btn btn-danger btn-sm" data-item-id="@membershipType.Id" data-toggle="modal" data-target="#confirm-delete">Delete</button></td>
+            <td>@Html.ActionLink(genre.Name, "Edit", "Genres", new {id = genre.Id}, null)</td>
+            <td><button type="button" class="btn btn-danger btn-sm" data-item-id="@genre.Id" data-toggle="modal" data-target="#confirm-delete">Delete</button></td>
+
         </tr>
     }
     </tbody>
@@ -50,7 +44,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                @Html.ActionLink("Delete", "Delete", "MembershipTypes", new { id = membershipTypeToDelete }, new { @class = "btn btn-danger" })
+                @Html.ActionLink("Delete", "Delete", "Genres", new { id = genreId }, new { @class = "btn btn-danger" })
             </div>
         </div>
     </div>

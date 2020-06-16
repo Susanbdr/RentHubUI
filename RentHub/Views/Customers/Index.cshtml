@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2></h2>
+<h2>List of Customers</h2>
 
 <p>
     @Html.ActionLink("NEW CUSTOMER", "New", "Customers", null, new { @class = "btn btn-primary" })
@@ -22,7 +22,7 @@
     </tr>
     </thead>
     <tbody>
-    @{ var customerIdToDelete = 0;}
+    @{ var customerId = 0;}
 
     @foreach (var customer in Model)
     {
@@ -32,8 +32,8 @@
             <td>@customer.DateOfBirthForDisplay</td>
             <td>@customer.IsSubscribedToNewsLetter</td>
             <td><button type="button" class="btn btn-danger btn-sm" data-item-id="@customer.Id" data-toggle="modal" data-target="#confirm-delete">Delete</button></td>
-            customerIdToDelete = customer.Id;
         </tr>
+        customerId = customer.Id;
     }
     </tbody>
     
@@ -52,7 +52,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                @Html.ActionLink("Delete", "Delete", "Customers", new { id = customerIdToDelete }, new { @class = "btn btn-danger" })
+                @Html.ActionLink("Delete", "Delete", "Customers", new { id = customerId }, new { @class = "btn btn-danger" })
             </div>
         </div>
     </div>

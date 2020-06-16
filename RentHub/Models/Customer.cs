@@ -28,6 +28,7 @@ namespace RentHub.Models
         public bool IsSubscribedToNewsLetter { get; set; }
 
         [Display(Name = "Date of Birth")]
+        [Min18YearsIfAMember]
         public DateTime? DateOfBirth { get; set; }
 
         public DateTime CreatedDate { get; set; } = DateTime.Now;
@@ -40,5 +41,7 @@ namespace RentHub.Models
         public string ReturnCustomerFullNameForDisplay => FirstName + " " + MiddleName + " " + LastName;
 
         public string DateOfBirthForDisplay => Convert.ToString($"{DateOfBirth:dd/MM/yyyy}");
+
+      
     }
 }
