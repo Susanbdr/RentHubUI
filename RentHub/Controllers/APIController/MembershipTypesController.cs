@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
-using Microsoft.Ajax.Utilities;
 using RentHub.Dtos;
 using RentHub.Models;
 
@@ -89,8 +86,5 @@ namespace RentHub.Controllers.APIController
 
             return Ok(membershipTypeInDb);
         }
-
-
-
     }
 }
