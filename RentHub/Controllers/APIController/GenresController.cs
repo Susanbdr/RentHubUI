@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Web.Http;
@@ -19,26 +20,26 @@ namespace RentHub.Controllers.APIController
 
         // GET /api/genres
         [HttpGet]
-        public IEnumerable<GenreDto> GetGenres()
+        public IHttpActionResult GetGenres()
         {
-            return _context.Genres.ToList().Select(Mapper.Map<Genre, GenreDto>);
+            return Ok(_context.Genres.ToList().Select(Mapper.Map<Genre, GenreDto>));
         }
 
         // GET /api/genres/1
         [HttpGet]
-        public GenreDto GetGenre(byte id)
+        public IHttpActionResult GetGenre(byte id)
         {
             var genre = _context.Genres.SingleOrDefault(g => g.Id == id);
 
             if(genre == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            return Mapper.Map<Genre, GenreDto>(genre);
+            return Ok(Mapper.Map<Genre, GenreDto>(genre));
         }
 
         // POST /api/genres
         [HttpPost]
-        public GenreDto CreateGenre(GenreDto genreDto)
+        public IHttpActionResult CreateGenre(GenreDto genreDto)
         {
            if(!ModelState.IsValid)
                throw new HttpResponseException(HttpStatusCode.BadRequest);
@@ -47,12 +48,12 @@ namespace RentHub.Controllers.APIController
            _context.Genres.Add(genre);
            _context.SaveChanges();
 
-           return genreDto;
+           return Created(new Uri(Request.RequestUri + "/" + genre.Id), genreDto);
         }
 
         // PUT /api/genres/1
         [HttpPut]
-        public GenreDto UpdateGenre(byte id, GenreDto genreDto)
+        public IHttpActionResult UpdateGenre(byte id, GenreDto genreDto)
         {
             if(!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
@@ -66,12 +67,12 @@ namespace RentHub.Controllers.APIController
 
             _context.SaveChanges();
 
-            return genreDto;
+            return Ok(genreDto);
         }
 
         // DELETE /api/genres/i
         [HttpDelete]
-        public void DeleteGenre(byte id)
+        public IHttpActionResult DeleteGenre(byte id)
         {
             if(!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
@@ -82,7 +83,8 @@ namespace RentHub.Controllers.APIController
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
             _context.Genres.Remove(genreInDb);
-            _context.SaveChanges();
+
+            return Ok(_context.SaveChanges());
         }
     }
 }
