@@ -4,6 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using AutoMapper;
+using RentHub.Dtos;
 using RentHub.Models;
 
 namespace RentHub.Controllers.APIController
@@ -19,40 +21,41 @@ namespace RentHub.Controllers.APIController
 
         // GET /api/movies
         [HttpGet]
-        public IEnumerable<Movie> GetMovies()
+        public IEnumerable<MovieDto> GetMovies()
         {
-            return _context.Movies.ToList();
+            return _context.Movies.ToList().Select(Mapper.Map<Movie, MovieDto>);
         }
 
 
         // GET /api/movies/1
         [HttpGet]
-        public Movie GetMovie(int id)
+        public MovieDto GetMovie(int id)
         {
             var movie = _context.Movies.SingleOrDefault(m => m.Id == id);
 
             if(movie == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            return movie;
+            return Mapper.Map<Movie, MovieDto>(movie);
         }
 
         // POST /api/movies
         [HttpPost]
-        public Movie CreateMovie(Movie movie)
+        public MovieDto CreateMovie(MovieDto movieDto)
         {
             if(!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
 
+            var movie = Mapper.Map<MovieDto, Movie>(movieDto);
             _context.Movies.Add(movie);
             _context.SaveChanges();
 
-            return movie;
+            return movieDto;
         }
 
         // PUT /api/movies?id=1
         [HttpPut]
-        public Movie UpdateMovie(int id, Movie movie)
+        public MovieDto UpdateMovie(int id, MovieDto movieDto)
         {
             if(!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
@@ -62,19 +65,16 @@ namespace RentHub.Controllers.APIController
             if(movieInDb == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            movieInDb.Name = movie.Name;
-            movieInDb.NumberInStock = movie.NumberInStock;
-            movieInDb.ReleaseDate = movie.ReleaseDate;
-            movieInDb.GenreId = movie.GenreId;
+            Mapper.Map(movieDto, movieInDb);
 
             _context.SaveChanges();
 
-            return movie;
+            return movieDto;
         }
 
-        // DELETE /api/movie?id=1
+        // DELETE /api/movieDto?id=1
         [HttpDelete]
-        public Movie DeleteMovie(int id)
+        public void DeleteMovie(int id)
         {
             var movieInDb = _context.Movies.SingleOrDefault(m => m.Id == id);
 
@@ -83,8 +83,6 @@ namespace RentHub.Controllers.APIController
 
             _context.Movies.Remove(movieInDb);
             _context.SaveChanges();
-
-            return movieInDb;
         }
     }
 }
