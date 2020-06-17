@@ -198,6 +198,7 @@
     <Compile Include="Controllers\UIController\MembershipTypesController.cs" />
     <Compile Include="Controllers\UIController\MoviesController.cs" />
     <Compile Include="Dtos\CustomerDto.cs" />
+    <Compile Include="Dtos\GenreDto.cs" />
     <Compile Include="Dtos\MovieDto.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

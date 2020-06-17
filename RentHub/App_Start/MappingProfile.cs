@@ -16,6 +16,10 @@ namespace RentHub
             Mapper.CreateMap<Movie, MovieDto>();
             Mapper.CreateMap<MovieDto, Movie>().ForMember(m => m.Id, 
                 m => m.Ignore());
+
+            Mapper.CreateMap<Genre, GenreDto>();
+            Mapper.CreateMap<GenreDto, Genre>().ForMember(g => g.Id,
+                g => g.Ignore());
         }
     }
 }
