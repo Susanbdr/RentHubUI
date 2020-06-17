@@ -4,7 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using AutoMapper;
 using Microsoft.Ajax.Utilities;
+using RentHub.Dtos;
 using RentHub.Models;
 
 namespace RentHub.Controllers.APIController
@@ -20,39 +22,40 @@ namespace RentHub.Controllers.APIController
 
         // GET /api/membershiptypes
         [HttpGet]
-        public IEnumerable<MembershipType> GetMembershipTypes()
+        public IEnumerable<MembershipTypeDto> GetMembershipTypes()
         {
-            return _context.MembershipTypes.ToList();
+            return _context.MembershipTypes.ToList().Select(Mapper.Map<MembershipType, MembershipTypeDto>);
         }
 
         // GET /api/membershiptypes/1
         [HttpGet]
-        public MembershipType GetMembershipType(byte id)
+        public MembershipTypeDto GetMembershipType(byte id)
         {
             var membershipType = _context.MembershipTypes.SingleOrDefault(m => m.Id == id);
 
             if(membershipType == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            return membershipType;
+            return Mapper.Map<MembershipType, MembershipTypeDto>(membershipType);
         }
 
         // POST /api/membershiptypes
         [HttpPost]
-        public MembershipType CreateMembershipType(MembershipType membershipType)
+        public MembershipTypeDto CreateMembershipType(MembershipTypeDto membershipTypeDto)
         {
             if(!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
 
+            var membershipType = Mapper.Map<MembershipTypeDto, MembershipType>(membershipTypeDto);
             _context.MembershipTypes.Add(membershipType);
             _context.SaveChanges();
 
-            return membershipType;
+            return membershipTypeDto;
         }
 
         // PUT /api/membershiptypes/1
         [HttpPut]
-        public MembershipType UpdateMembershipType(byte id, MembershipType membershipType)
+        public MembershipTypeDto UpdateMembershipType(byte id, MembershipTypeDto membershipTypeDto)
         {
             if(!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
@@ -62,14 +65,11 @@ namespace RentHub.Controllers.APIController
             if(membershipTypeInDb == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
-            membershipTypeInDb.SignUpFee = membershipType.SignUpFee;
-            membershipTypeInDb.DurationInMonths = membershipType.DurationInMonths;
-            membershipTypeInDb.DiscountRate = membershipType.DiscountRate;
-            membershipTypeInDb.Name = membershipType.Name;
+            Mapper.Map(membershipTypeDto, membershipTypeInDb);
 
             _context.SaveChanges();
 
-            return membershipType;
+            return membershipTypeDto;
         }
 
         // DELETE /api/membershiptypes/1
