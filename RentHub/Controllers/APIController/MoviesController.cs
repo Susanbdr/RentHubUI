@@ -21,27 +21,27 @@ namespace RentHub.Controllers.APIController
 
         // GET /api/movies
         [HttpGet]
-        public IEnumerable<MovieDto> GetMovies()
+        public IHttpActionResult GetMovies()
         {
-            return _context.Movies.ToList().Select(Mapper.Map<Movie, MovieDto>);
+            return Ok(_context.Movies.ToList().Select(Mapper.Map<Movie, MovieDto>));
         }
 
 
         // GET /api/movies/1
         [HttpGet]
-        public MovieDto GetMovie(int id)
+        public IHttpActionResult GetMovie(int id)
         {
             var movie = _context.Movies.SingleOrDefault(m => m.Id == id);
 
-            if(movie == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+            if (movie == null)
+                return NotFound();
 
-            return Mapper.Map<Movie, MovieDto>(movie);
+            return Ok(Mapper.Map<Movie, MovieDto>(movie));
         }
 
         // POST /api/movies
         [HttpPost]
-        public MovieDto CreateMovie(MovieDto movieDto)
+        public IHttpActionResult CreateMovie(MovieDto movieDto)
         {
             if(!ModelState.IsValid)
                 throw new HttpResponseException(HttpStatusCode.BadRequest);
@@ -50,31 +50,31 @@ namespace RentHub.Controllers.APIController
             _context.Movies.Add(movie);
             _context.SaveChanges();
 
-            return movieDto;
+            return Created(new Uri(Request.RequestUri + "/" + movie.Id), movieDto);
         }
 
         // PUT /api/movies?id=1
         [HttpPut]
-        public MovieDto UpdateMovie(int id, MovieDto movieDto)
+        public IHttpActionResult UpdateMovie(int id, MovieDto movieDto)
         {
-            if(!ModelState.IsValid)
-                throw new HttpResponseException(HttpStatusCode.BadRequest);
+            if (!ModelState.IsValid)
+                return BadRequest();
 
             var movieInDb = _context.Movies.SingleOrDefault(m => m.Id == id);
 
-            if(movieInDb == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
+            if (movieInDb == null)
+                return NotFound();
 
             Mapper.Map(movieDto, movieInDb);
 
             _context.SaveChanges();
 
-            return movieDto;
+            return Ok(movieDto);
         }
 
         // DELETE /api/movieDto?id=1
         [HttpDelete]
-        public void DeleteMovie(int id)
+        public IHttpActionResult DeleteMovie(int id)
         {
             var movieInDb = _context.Movies.SingleOrDefault(m => m.Id == id);
 
@@ -82,7 +82,7 @@ namespace RentHub.Controllers.APIController
                 throw new HttpResponseException(HttpStatusCode.NotFound);
 
             _context.Movies.Remove(movieInDb);
-            _context.SaveChanges();
+            return Ok(_context.SaveChanges());
         }
     }
 }
