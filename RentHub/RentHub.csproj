@@ -206,44 +206,30 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202006141612052_InitialMigration.cs" />
-    <Compile Include="Migrations\202006141612052_InitialMigration.designer.cs">
-      <DependentUpon>202006141612052_InitialMigration.cs</DependentUpon>
+    <Compile Include="Migrations\202006181557598_CreateMyDbContext.cs" />
+    <Compile Include="Migrations\202006181557598_CreateMyDbContext.designer.cs">
+      <DependentUpon>202006181557598_CreateMyDbContext.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202006141614337_CreateRelationshipBetweenCustomerAndMembershipTypes.cs" />
-    <Compile Include="Migrations\202006141614337_CreateRelationshipBetweenCustomerAndMembershipTypes.designer.cs">
-      <DependentUpon>202006141614337_CreateRelationshipBetweenCustomerAndMembershipTypes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202006141732102_AddMoreFieldsToCustomerTable.cs" />
-    <Compile Include="Migrations\202006141732102_AddMoreFieldsToCustomerTable.designer.cs">
-      <DependentUpon>202006141732102_AddMoreFieldsToCustomerTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202006141925254_AddPropertiesToMembershipType.cs" />
-    <Compile Include="Migrations\202006141925254_AddPropertiesToMembershipType.designer.cs">
-      <DependentUpon>202006141925254_AddPropertiesToMembershipType.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202006142119330_AddCreatedDateToCustomerModel.cs" />
-    <Compile Include="Migrations\202006142119330_AddCreatedDateToCustomerModel.designer.cs">
-      <DependentUpon>202006142119330_AddCreatedDateToCustomerModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202006142140144_AddIdentityTablesToRentHubDb.cs" />
-    <Compile Include="Migrations\202006142140144_AddIdentityTablesToRentHubDb.designer.cs">
-      <DependentUpon>202006142140144_AddIdentityTablesToRentHubDb.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202006151454562_AddMovieAndGenreModels.cs" />
-    <Compile Include="Migrations\202006151454562_AddMovieAndGenreModels.designer.cs">
-      <DependentUpon>202006151454562_AddMovieAndGenreModels.cs</DependentUpon>
+    <Compile Include="Migrations\202006181606481_UpdateStringLengthConstraintForCellPhoneNumber.cs" />
+    <Compile Include="Migrations\202006181606481_UpdateStringLengthConstraintForCellPhoneNumber.designer.cs">
+      <DependentUpon>202006181606481_UpdateStringLengthConstraintForCellPhoneNumber.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\DataHouseContext.cs" />
+    <Compile Include="Models\ForgotPasswordViewModel.cs" />
     <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MembershipType.cs" />
     <Compile Include="Models\Min18YearsIfAMember.cs" />
     <Compile Include="Models\Movie.cs" />
+    <Compile Include="Models\RegisterViewModel.cs" />
+    <Compile Include="Models\ResetPasswordViewModel.cs" />
+    <Compile Include="Models\RoleName.cs" />
+    <Compile Include="Models\VerifyCodeViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CustomerViewModel.cs" />
@@ -571,7 +557,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Customers\Index.cshtml" />
+    <Content Include="Views\Customers\List.cshtml" />
     <Content Include="Views\Customers\CustomerForm.cshtml" />
     <Content Include="Views\MembershipTypes\Index.cshtml" />
     <Content Include="Views\MembershipTypes\MembershipTypeForm.cshtml" />
@@ -593,6 +579,7 @@
     <Content Include="Views\Movies\Index.cshtml" />
     <Content Include="Views\Movies\MovieForm.cshtml" />
     <Content Include="Views\JQueryCustomers\Index.cshtml" />
+    <Content Include="Views\Customers\ReadOnlyList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -601,33 +588,18 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202006141612052_InitialMigration.resx">
-      <DependentUpon>202006141612052_InitialMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202006141614337_CreateRelationshipBetweenCustomerAndMembershipTypes.resx">
-      <DependentUpon>202006141614337_CreateRelationshipBetweenCustomerAndMembershipTypes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202006141732102_AddMoreFieldsToCustomerTable.resx">
-      <DependentUpon>202006141732102_AddMoreFieldsToCustomerTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202006141925254_AddPropertiesToMembershipType.resx">
-      <DependentUpon>202006141925254_AddPropertiesToMembershipType.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202006142119330_AddCreatedDateToCustomerModel.resx">
-      <DependentUpon>202006142119330_AddCreatedDateToCustomerModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202006142140144_AddIdentityTablesToRentHubDb.resx">
-      <DependentUpon>202006142140144_AddIdentityTablesToRentHubDb.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202006151454562_AddMovieAndGenreModels.resx">
-      <DependentUpon>202006151454562_AddMovieAndGenreModels.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202006181557598_CreateMyDbContext.resx">
+      <DependentUpon>202006181557598_CreateMyDbContext.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006181606481_UpdateStringLengthConstraintForCellPhoneNumber.resx">
+      <DependentUpon>202006181606481_UpdateStringLengthConstraintForCellPhoneNumber.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

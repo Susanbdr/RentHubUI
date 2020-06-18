@@ -7,13 +7,13 @@ namespace RentHub.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class InitialMigration : IMigrationMetadata
+    public sealed partial class UpdateStringLengthConstraintForCellPhoneNumber : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialMigration));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateStringLengthConstraintForCellPhoneNumber));
         
         string IMigrationMetadata.Id
         {
-            get { return "202006141612052_InitialMigration"; }
+            get { return "202006181606481_UpdateStringLengthConstraintForCellPhoneNumber"; }
         }
         
         string IMigrationMetadata.Source

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Microsoft.Ajax.Utilities;
 using RentHub.Models;
 using RentHub.ViewModels;
 
@@ -29,9 +25,13 @@ namespace RentHub.Controllers.UIController
         {
             var customers = _context.Customers.Include(c => c.MembershipType).ToList();
 
-            return View(customers);
+           if(User.IsInRole("CanaManageMovies"))
+                return View("List", customers);
+
+           return View("ReadOnlyList", customers);
         }
 
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public ActionResult New()
         {
             var membershipTypes = _context.MembershipTypes.ToList();

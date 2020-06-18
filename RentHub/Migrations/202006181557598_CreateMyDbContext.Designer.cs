@@ -7,13 +7,13 @@ namespace RentHub.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class AddIdentityTablesToRentHubDb : IMigrationMetadata
+    public sealed partial class CreateMyDbContext : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddIdentityTablesToRentHubDb));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateMyDbContext));
         
         string IMigrationMetadata.Id
         {
-            get { return "202006142140144_AddIdentityTablesToRentHubDb"; }
+            get { return "202006181557598_CreateMyDbContext"; }
         }
         
         string IMigrationMetadata.Source
