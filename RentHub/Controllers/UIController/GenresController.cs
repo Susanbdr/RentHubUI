@@ -4,17 +4,18 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using RentHub.Models;
+using RentHub.Models.BusinessModels;
 using RentHub.ViewModels;
 
 namespace RentHub.Controllers.UIController
 {
     public class GenresController : Controller
     {
-        private readonly DataHouseContext _context;
+        private readonly ApplicationDbContext _context;
 
         public GenresController()
         {
-            _context = new DataHouseContext();
+            _context = new ApplicationDbContext();
         }
 
         protected override void Dispose(bool disposing)

@@ -5,25 +5,37 @@ using System.Web.Http;
 using AutoMapper;
 using RentHub.Dtos;
 using RentHub.Models;
+using RentHub.Models.BusinessModels;
 
 namespace RentHub.Controllers.APIController
 {
     public class CustomersController : ApiController
     {
-        private readonly DataHouseContext _context;
+        private readonly ApplicationDbContext _context;
 
         public CustomersController()
         {
-            _context = new DataHouseContext();
+            _context = new ApplicationDbContext();
         }
 
         // GET /api/customers
-        public IHttpActionResult GetCustomers()
+        public IHttpActionResult GetCustomers(string query = null)
         {
-            return Ok(_context.Customers
-                .Include(c => c.MembershipType)
+            //return Ok(_context.Customers
+            //    .Include(c => c.MembershipType)
+            //    .ToList()
+            //    .Select(Mapper.Map<Customer, CustomerDto>));
+
+            var customersQuery = _context.Customers.Include(c => c.MembershipType);
+
+            if (!string.IsNullOrWhiteSpace(query))
+                customersQuery = customersQuery.Where(c => c.Name.Contains(query));
+
+            var customerDto = customersQuery
                 .ToList()
-                .Select(Mapper.Map<Customer, CustomerDto>));
+                .Select(Mapper.Map<Customer, CustomerDto>);
+
+            return Ok(customerDto);
         }
 
         // GET /api/customers/1
@@ -34,7 +46,9 @@ namespace RentHub.Controllers.APIController
             if (customer == null)
                 return NotFound();
 
-            return Ok(Mapper.Map<Customer, CustomerDto>(customer));
+            Mapper.Map<Customer, CustomerDto>(customer);
+
+            return Ok(customer);
         }
 
         // POST /api/customers

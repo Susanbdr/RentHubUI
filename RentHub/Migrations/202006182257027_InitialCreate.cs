@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class CreateMyDbContext : DbMigration
+    public partial class InitialCreate : DbMigration
     {
         public override void Up()
         {
@@ -89,7 +89,7 @@
                     {
                         Id = c.String(nullable: false, maxLength: 128),
                         DrivingLicense = c.String(nullable: false, maxLength: 255),
-                        CellPhoneNumber = c.String(),
+                        CellPhoneNumber = c.String(maxLength: 255),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),

@@ -2,6 +2,7 @@
 using AutoMapper;
 using RentHub.Dtos;
 using RentHub.Models;
+using RentHub.Models.BusinessModels;
 
 namespace RentHub
 {

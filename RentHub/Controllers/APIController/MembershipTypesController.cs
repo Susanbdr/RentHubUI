@@ -5,16 +5,17 @@ using System.Web.Http;
 using AutoMapper;
 using RentHub.Dtos;
 using RentHub.Models;
+using RentHub.Models.BusinessModels;
 
 namespace RentHub.Controllers.APIController
 {
     public class MembershipTypesController : ApiController
     {
-        private readonly DataHouseContext _context;
+        private readonly ApplicationDbContext _context;
 
         public MembershipTypesController()
         {
-            _context = new DataHouseContext();
+            _context = new ApplicationDbContext();
         }
 
         // GET /api/membershiptypes

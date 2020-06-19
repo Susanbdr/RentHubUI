@@ -7,13 +7,13 @@ namespace RentHub.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class CreateMyDbContext : IMigrationMetadata
+    public sealed partial class RemoveMiddleAndLastName : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(CreateMyDbContext));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(RemoveMiddleAndLastName));
         
         string IMigrationMetadata.Id
         {
-            get { return "202006181557598_CreateMyDbContext"; }
+            get { return "202006190421282_RemoveMiddleAndLastName"; }
         }
         
         string IMigrationMetadata.Source

@@ -7,13 +7,13 @@ namespace RentHub.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class UpdateStringLengthConstraintForCellPhoneNumber : IMigrationMetadata
+    public sealed partial class AddRentalTableToDb : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(UpdateStringLengthConstraintForCellPhoneNumber));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddRentalTableToDb));
         
         string IMigrationMetadata.Id
         {
-            get { return "202006181606481_UpdateStringLengthConstraintForCellPhoneNumber"; }
+            get { return "202006190155081_AddRentalTableToDb"; }
         }
         
         string IMigrationMetadata.Source

@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
-namespace RentHub.Models
+namespace RentHub.Models.BusinessModels
 {
     public class Customer
     {
@@ -12,17 +9,7 @@ namespace RentHub.Models
 
         [Required]
         [StringLength(255)]
-        [Display(Name = "First Name")]
-        public string FirstName { get; set; }
- 
-        [StringLength(255)]
-        [Display(Name = "Middle Name")]
-        public string MiddleName { get; set; }
-
-        [Required]
-        [StringLength(255)]
-        [Display(Name = "Last Name")]
-        public string LastName { get; set; }
+        public string Name { get; set; }
 
         [Display(Name = "Subscribe To Newsletter")]
         public bool IsSubscribedToNewsLetter { get; set; }
@@ -37,8 +24,6 @@ namespace RentHub.Models
 
         [Display(Name = "Membership Type")]
         public byte MembershipTypeId { get; set; }
-
-        public string ReturnCustomerFullNameForDisplay => FirstName + " " + MiddleName + " " + LastName;
 
         public string DateOfBirthForDisplay => Convert.ToString($"{DateOfBirth:dd/MM/yyyy}");
 

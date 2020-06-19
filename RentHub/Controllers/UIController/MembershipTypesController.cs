@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using RentHub.Models;
+using RentHub.Models.BusinessModels;
 using RentHub.ViewModels;
 
 namespace RentHub.Controllers.UIController
@@ -11,11 +12,11 @@ namespace RentHub.Controllers.UIController
     public class MembershipTypesController : Controller
     {
 
-        private readonly DataHouseContext _context;
+        private readonly ApplicationDbContext _context;
 
         public MembershipTypesController()
         {
-            _context = new DataHouseContext();
+            _context = new ApplicationDbContext();
         }
 
         protected override void Dispose(bool disposing)

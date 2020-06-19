@@ -20,23 +20,10 @@ namespace RentHub.Models
         }
 
         [Required]
-        [StringLength(255)]
+        [StringLength(50)]
         public string DrivingLicense { get; set; }
 
-        [StringLength(255)]
+        [StringLength(50)]
         public string CellPhoneNumber { get; set; }
-    }
-
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
-    {
-        public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
-        {
-        }
-
-        public static ApplicationDbContext Create()
-        {
-            return new ApplicationDbContext();
-        }
     }
 }

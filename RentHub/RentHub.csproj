@@ -57,6 +57,21 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Glimpse.Ado, Version=1.7.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Glimpse.Ado.1.7.3\lib\net45\Glimpse.Ado.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.AspNet, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Glimpse.AspNet.1.8.0\lib\net45\Glimpse.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.Core, Version=1.8.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Glimpse.1.8.6\lib\net45\Glimpse.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.EF6, Version=1.6.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Glimpse.EF6.1.6.5\lib\net45\Glimpse.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.Mvc5, Version=1.5.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Glimpse.Mvc5.1.5.3\lib\net45\Glimpse.Mvc5.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.4.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
@@ -192,6 +207,7 @@
     <Compile Include="Controllers\APIController\GenresController.cs" />
     <Compile Include="Controllers\APIController\MembershipTypesController.cs" />
     <Compile Include="Controllers\APIController\MoviesController.cs" />
+    <Compile Include="Controllers\APIController\NewRentalsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\jQueryController\JQueryCustomersController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -199,33 +215,57 @@
     <Compile Include="Controllers\UIController\GenresController.cs" />
     <Compile Include="Controllers\UIController\MembershipTypesController.cs" />
     <Compile Include="Controllers\UIController\MoviesController.cs" />
+    <Compile Include="Controllers\UIController\RentalsController.cs" />
     <Compile Include="Dtos\CustomerDto.cs" />
     <Compile Include="Dtos\GenreDto.cs" />
     <Compile Include="Dtos\MembershipTypeDto.cs" />
     <Compile Include="Dtos\MovieDto.cs" />
+    <Compile Include="Dtos\NewRentalDto.cs" />
+    <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202006181557598_CreateMyDbContext.cs" />
-    <Compile Include="Migrations\202006181557598_CreateMyDbContext.designer.cs">
-      <DependentUpon>202006181557598_CreateMyDbContext.cs</DependentUpon>
+    <Compile Include="Migrations\202006182257027_InitialCreate.cs" />
+    <Compile Include="Migrations\202006182257027_InitialCreate.designer.cs">
+      <DependentUpon>202006182257027_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202006181606481_UpdateStringLengthConstraintForCellPhoneNumber.cs" />
-    <Compile Include="Migrations\202006181606481_UpdateStringLengthConstraintForCellPhoneNumber.designer.cs">
-      <DependentUpon>202006181606481_UpdateStringLengthConstraintForCellPhoneNumber.cs</DependentUpon>
+    <Compile Include="Migrations\202006182259498_InitialMigration.cs" />
+    <Compile Include="Migrations\202006182259498_InitialMigration.designer.cs">
+      <DependentUpon>202006182259498_InitialMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006182324198_SeedUsers.cs" />
+    <Compile Include="Migrations\202006182324198_SeedUsers.designer.cs">
+      <DependentUpon>202006182324198_SeedUsers.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006190155081_AddRentalTableToDb.cs" />
+    <Compile Include="Migrations\202006190155081_AddRentalTableToDb.designer.cs">
+      <DependentUpon>202006190155081_AddRentalTableToDb.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006190328025_AddNumberAvailableInMovieModel.cs" />
+    <Compile Include="Migrations\202006190328025_AddNumberAvailableInMovieModel.designer.cs">
+      <DependentUpon>202006190328025_AddNumberAvailableInMovieModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006190421282_RemoveMiddleAndLastName.cs" />
+    <Compile Include="Migrations\202006190421282_RemoveMiddleAndLastName.designer.cs">
+      <DependentUpon>202006190421282_RemoveMiddleAndLastName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202006190423464_AddNamesToTheCustomerTable.cs" />
+    <Compile Include="Migrations\202006190423464_AddNamesToTheCustomerTable.designer.cs">
+      <DependentUpon>202006190423464_AddNamesToTheCustomerTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Customer.cs" />
-    <Compile Include="Models\DataHouseContext.cs" />
+    <Compile Include="Models\ApplicationDbContext.cs" />
+    <Compile Include="Models\BusinessModels\Customer.cs" />
+    <Compile Include="Models\BusinessModels\Rental.cs" />
     <Compile Include="Models\ForgotPasswordViewModel.cs" />
-    <Compile Include="Models\Genre.cs" />
+    <Compile Include="Models\BusinessModels\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\MembershipType.cs" />
+    <Compile Include="Models\BusinessModels\MembershipType.cs" />
     <Compile Include="Models\Min18YearsIfAMember.cs" />
-    <Compile Include="Models\Movie.cs" />
+    <Compile Include="Models\BusinessModels\Movie.cs" />
     <Compile Include="Models\RegisterViewModel.cs" />
     <Compile Include="Models\ResetPasswordViewModel.cs" />
     <Compile Include="Models\RoleName.cs" />
@@ -349,10 +389,15 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Content\toastr.css" />
+    <Content Include="Content\toastr.min.css" />
+    <Content Include="Content\typeahead.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bloodhound.js" />
+    <Content Include="Scripts\bloodhound.min.js" />
     <Content Include="Scripts\bootbox.js" />
     <Content Include="Scripts\bootbox.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -440,6 +485,8 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\DataTables\css\mixins.scss" />
     <Content Include="Content\DataTables\css\common.scss" />
+    <Content Include="Content\toastr.scss" />
+    <Content Include="Content\toastr.less" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <None Include="Scripts\jquery-3.5.1-vsdoc.js" />
     <Content Include="Scripts\jquery-3.5.1.js" />
@@ -519,6 +566,12 @@
     <Content Include="Scripts\src\utils\setAttributes.js" />
     <Content Include="Scripts\src\utils\setStyles.js" />
     <Content Include="Scripts\src\utils\setupEventListeners.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
+    <Content Include="Scripts\typeahead.bundle.js" />
+    <Content Include="Scripts\typeahead.bundle.min.js" />
+    <Content Include="Scripts\typeahead.jquery.js" />
+    <Content Include="Scripts\typeahead.jquery.min.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
@@ -580,6 +633,7 @@
     <Content Include="Views\Movies\MovieForm.cshtml" />
     <Content Include="Views\JQueryCustomers\Index.cshtml" />
     <Content Include="Views\Customers\ReadOnlyList.cshtml" />
+    <Content Include="Views\Rentals\New.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -594,11 +648,26 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202006181557598_CreateMyDbContext.resx">
-      <DependentUpon>202006181557598_CreateMyDbContext.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202006182257027_InitialCreate.resx">
+      <DependentUpon>202006182257027_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202006181606481_UpdateStringLengthConstraintForCellPhoneNumber.resx">
-      <DependentUpon>202006181606481_UpdateStringLengthConstraintForCellPhoneNumber.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202006182259498_InitialMigration.resx">
+      <DependentUpon>202006182259498_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006182324198_SeedUsers.resx">
+      <DependentUpon>202006182324198_SeedUsers.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006190155081_AddRentalTableToDb.resx">
+      <DependentUpon>202006190155081_AddRentalTableToDb.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006190328025_AddNumberAvailableInMovieModel.resx">
+      <DependentUpon>202006190328025_AddNumberAvailableInMovieModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006190421282_RemoveMiddleAndLastName.resx">
+      <DependentUpon>202006190421282_RemoveMiddleAndLastName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006190423464_AddNamesToTheCustomerTable.resx">
+      <DependentUpon>202006190423464_AddNamesToTheCustomerTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

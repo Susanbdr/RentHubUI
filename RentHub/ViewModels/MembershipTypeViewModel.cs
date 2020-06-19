@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Security;
 using RentHub.Models;
+using RentHub.Models.BusinessModels;
 
 namespace RentHub.ViewModels
 {

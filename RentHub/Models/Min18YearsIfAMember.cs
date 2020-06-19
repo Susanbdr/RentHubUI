@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using Microsoft.Ajax.Utilities;
+using RentHub.Models.BusinessModels;
 
 namespace RentHub.Models
 {

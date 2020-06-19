@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using RentHub.Models;
+using RentHub.Models.BusinessModels;
 using RentHub.ViewModels;
 
 namespace RentHub.Controllers.UIController
@@ -12,11 +13,11 @@ namespace RentHub.Controllers.UIController
     public class MoviesController : Controller
     {
 
-        private readonly DataHouseContext _context;
+        private readonly ApplicationDbContext _context;
 
         public MoviesController()
         {
-            _context = new DataHouseContext();
+            _context = new ApplicationDbContext();
         }
 
         protected override void Dispose(bool disposing)
@@ -58,6 +59,7 @@ namespace RentHub.Controllers.UIController
             
             if (movie.Id == 0)
             {
+                movie.NumberAvailable = movie.NumberInStock;
                 _context.Movies.Add(movie);
             }
             else
@@ -67,6 +69,7 @@ namespace RentHub.Controllers.UIController
                 movieInDb.Name = movie.Name;
                 movieInDb.GenreId = movie.GenreId;
                 movieInDb.ReleaseDate = movie.ReleaseDate;
+                movieInDb.NumberAvailable = movie.NumberInStock;
             }
 
             _context.SaveChanges();

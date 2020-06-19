@@ -1,10 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+using System.Data.Entity.Migrations.Model;
+using Microsoft.Ajax.Utilities;
 
-namespace RentHub.Models
+namespace RentHub.Models.BusinessModels
 {
     public class Movie
     {
@@ -28,6 +27,10 @@ namespace RentHub.Models
         [Range(1, 20, ErrorMessage = "Number must be between 1 to 20")]
         public byte NumberInStock { get; set; }
 
+        public byte NumberAvailable { get; set; }
+
+
         public string ReleaseDateForDisplay => Convert.ToString($"{ReleaseDate:dd/MM/yyyy}");
+
     }
 }

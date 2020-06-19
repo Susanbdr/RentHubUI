@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -7,23 +8,37 @@ using System.Web.Http;
 using AutoMapper;
 using RentHub.Dtos;
 using RentHub.Models;
+using RentHub.Models.BusinessModels;
 
 namespace RentHub.Controllers.APIController
 {
     public class MoviesController : ApiController
     {
-        private readonly DataHouseContext _context;
+        private readonly ApplicationDbContext _context;
 
         public MoviesController()
         {
-            _context = new DataHouseContext();
+            _context = new ApplicationDbContext();
         }
 
         // GET /api/movies
         [HttpGet]
-        public IHttpActionResult GetMovies()
+        public IHttpActionResult GetMovies(string query = null)
         {
-            return Ok(_context.Movies.ToList().Select(Mapper.Map<Movie, MovieDto>));
+            //return Ok(_context.Movies.ToList().Select(Mapper.Map<Movie, MovieDto>));
+
+            var movieQuery = _context.Movies
+                .Include(m => m.Genre)
+                .Where(m => m.NumberAvailable > 0);
+
+            if (!string.IsNullOrWhiteSpace(query))
+                movieQuery = movieQuery.Where(m => m.Name.Contains(query));
+
+            var movieDto = movieQuery
+                .ToList()
+                .Select(Mapper.Map<Movie, MovieDto>);
+
+            return Ok(movieDto);
         }
 
 

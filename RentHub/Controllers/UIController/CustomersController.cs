@@ -2,17 +2,18 @@
 using System.Linq;
 using System.Web.Mvc;
 using RentHub.Models;
+using RentHub.Models.BusinessModels;
 using RentHub.ViewModels;
 
 namespace RentHub.Controllers.UIController
 {
     public class CustomersController : Controller
     {
-        private readonly DataHouseContext _context;
+        private readonly ApplicationDbContext _context;
 
         public CustomersController()
         {
-            _context = new DataHouseContext();
+            _context = new ApplicationDbContext();
         }
 
         protected override void Dispose(bool disposing)
@@ -25,7 +26,7 @@ namespace RentHub.Controllers.UIController
         {
             var customers = _context.Customers.Include(c => c.MembershipType).ToList();
 
-           if(User.IsInRole("CanaManageMovies"))
+           if(User.IsInRole(RoleName.CanManageMovies))
                 return View("List", customers);
 
            return View("ReadOnlyList", customers);
@@ -67,9 +68,7 @@ namespace RentHub.Controllers.UIController
             {
                 var customerInDb = _context.Customers.Single(c => c.Id == customer.Id);
 
-                customerInDb.FirstName = customer.FirstName;
-                customerInDb.MiddleName = customer.MiddleName;
-                customerInDb.LastName = customer.LastName;
+                customerInDb.Name = customer.Name;
                 customerInDb.DateOfBirth = customer.DateOfBirth;
                 customerInDb.IsSubscribedToNewsLetter = customer.IsSubscribedToNewsLetter;
             }

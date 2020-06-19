@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using RentHub.Models;
+using RentHub.Models.BusinessModels;
 
 namespace RentHub.ViewModels
 {
@@ -19,6 +20,7 @@ namespace RentHub.ViewModels
             GenreId = movie.GenreId;
             ReleaseDate = movie.ReleaseDate;
             NumberInStock = movie.NumberInStock;
+            NumberAvailable = movie.NumberInStock;
         }
 
         public List<Genre> Genres { get; set; }
@@ -39,6 +41,8 @@ namespace RentHub.ViewModels
         [Required]
         [Range(1, 20, ErrorMessage = "Number must be between 1 to 20")]
         public byte? NumberInStock { get; set; }
+
+        public byte NumberAvailable { get; set; }
 
         public string Title => Id != 0 ? "Edit Movie" : "New Movie";
     }
